@@ -1,5 +1,4 @@
 import { servers, users } from "../utils.js";
-import { client } from "../client.js";
 
 export default {
   name: "servers",
