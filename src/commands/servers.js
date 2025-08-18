@@ -8,8 +8,7 @@ export default {
 
     if (users.some(u => u.id === message.author.id && u.admin === 1)) {
       const content = servers.map(s => {
-        const server = client.guilds.cache.get(s.id);
-        return `**${server.name}**: <#${s.channelId}>`;
+        return `**${s.name}**: <#${s.channelId}>: ${s.id} `;
       }).join("\n");
 
       if (content.length === 0) {
