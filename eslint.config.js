@@ -37,7 +37,7 @@ export default defineConfig([
       "no-undef": "error",
 
       // Console usage
-      "no-console": "off",
+      "no-console": "warn",
 
       // Import plugin
       "import/no-unresolved": "error",

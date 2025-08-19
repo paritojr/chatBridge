@@ -26,7 +26,7 @@ client.on(Events.MessageCreate, async (message) => {
   try {
     await command.execute(message, args);
   } catch (error) {
-    console.error(error);
+    Logger.error(error, "TextCommands");
     await message.reply({ content: `There was an error executing this command.\n\`${error.message}\`` });
   }
 });

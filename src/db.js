@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 
+import Logger from "garylog";
 import sqlite3 from "sqlite3";
 
 const dataDir = "./data";
@@ -10,9 +11,9 @@ if (!fs.existsSync(dataDir)) {
 
 const db = new sqlite3.Database(path.join(dataDir, "servers.sqlite"), (err) => {
   if (err) {
-    console.error("Could not connect to database", err);
+    Logger.error(`Could not connect to database: ${err}`, "Database");
   } else {
-    console.log("Connected to the SQLite database.");
+    Logger.info("Connected to the SQLite database.", "Database");
   }
 });
 
