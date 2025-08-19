@@ -1,6 +1,6 @@
-import { USERID, PREFIX, adminUserCache } from "../utils.js";
 import { client } from "../client.js";
 import { adminUser } from "../db.js";
+import { USERID, PREFIX, adminUserCache } from "../utils.js";
 
 export default {
   name: "admin",

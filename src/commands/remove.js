@@ -1,6 +1,6 @@
 
-import { users, PREFIX, servers } from "../utils.js";
 import { removeServer } from "../db.js";
+import { users, PREFIX, servers } from "../utils.js";
 import { removeServerCache } from "../utils.js";
 
 export default {

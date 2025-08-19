@@ -3,8 +3,8 @@ import fs from "fs";
 import { Events, Collection } from "discord.js";
 import Logger from "garylog";
 
-import { PREFIX } from "./utils.js";
 import { client } from "./client.js";
+import { PREFIX } from "./utils.js";
 
 client.textCommands = new Collection();
 const textCommandFiles = fs

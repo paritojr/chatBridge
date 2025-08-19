@@ -1,9 +1,9 @@
-import Logger from "garylog";
 import { WebhookClient } from "discord.js";
+import Logger from "garylog";
 
 import { client } from "./client.js";
-import { servers, users, addUserCache, getAuthorUsernameFromMessage, filterMessage, removeServerCache } from "./utils.js";
 import { addUser, updateUsername, removeServer } from "./db.js";
+import { servers, users, addUserCache, getAuthorUsernameFromMessage, filterMessage, removeServerCache } from "./utils.js";
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;

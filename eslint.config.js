@@ -1,9 +1,9 @@
 // eslint.config.js
 import js from "@eslint/js";
-import globals from "globals";
-import importPlugin from "eslint-plugin-import";
 // eslint-disable-next-line import/no-unresolved
 import { defineConfig } from "eslint/config";
+import importPlugin from "eslint-plugin-import";
+import globals from "globals";
 
 export default defineConfig([
   {
@@ -44,6 +44,7 @@ export default defineConfig([
       "import/order": ["error", {
         "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
         "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": true },
       }],
       "import/newline-after-import": "error",
     },

@@ -1,5 +1,5 @@
-import { banUser } from "../db.js";
 import { client } from "../client.js";
+import { banUser } from "../db.js";
 import { users, banUserCache } from "../utils.js";
 
 export default {

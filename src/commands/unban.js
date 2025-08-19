@@ -1,6 +1,6 @@
+import { client } from "../client.js";
 import { unbanUser } from "../db.js";
 import { unbanUserCache } from "../utils.js";
-import { client } from "../client.js";
 import { users } from "../utils.js";
 
 export default {
