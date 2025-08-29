@@ -45,6 +45,15 @@ client.on("messageCreate", async (message) => {
       return;
     }
 
+    let totalAttachmentSize = 0;
+    message.attachments.forEach(att => {
+      if (att.size) totalAttachmentSize += att.size;
+    });
+    if (totalAttachmentSize > 8388608) {
+      Logger.warn(`Message from ${message.author.id} blocked: attachments exceed 8MB total.`);
+      return;
+    }
+
     for (const server of servers) {
       if (server.channelId === message.channel.id) continue;
 
