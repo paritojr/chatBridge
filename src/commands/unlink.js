@@ -1,5 +1,4 @@
-import { removeServer } from "../db.js";
-import { removeServerCache } from "../utils.js";
+import { removeServer } from "../servers.js";
 
 export default {
   name: "unlink",
@@ -9,7 +8,6 @@ export default {
     }
 
     await removeServer(message.guild.id);
-    removeServerCache(message.guild.id);
 
     message.reply("Channel unlinked successfully!");
   },

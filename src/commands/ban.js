@@ -1,6 +1,5 @@
 import { client } from "../client.js";
-import { banUser } from "../db.js";
-import { users, banUserCache } from "../utils.js";
+import { banUser, users } from "../users.js";
 
 export default {
   name: "ban",
@@ -15,7 +14,6 @@ export default {
           const userId = users[index].id;
           const username = users[index].username;
           await banUser(userId);
-          banUserCache(userId);
           return message.reply(`User ${username} has been banned from the bridge.`);
         }
       }
@@ -29,10 +27,9 @@ export default {
         return message.reply("User not found.");
       }
       await banUser(userId);
-      banUserCache(userId);
       message.reply(`User ${user.username} has been banned from the bridge.`);
     } else {
-      return message.reply("You do not have permission to use this command.");    
+      return message.reply("You do not have permission to use this command.");
     }
 
   },

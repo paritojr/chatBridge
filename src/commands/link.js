@@ -1,7 +1,7 @@
 import { client } from "../client.js";
-import { addServer } from "../db.js"; 
+import { addServer, servers } from "../servers.js";
+import { users } from "../users.js";
 import { PREFIX } from "../utils.js";
-import { servers, addServerCache, users } from "../utils.js";
 
 export default {
   name: "link",
@@ -38,7 +38,6 @@ export default {
     const webhook = await channel.createWebhook({ name: "ChatBridge Webhook" });
 
     await addServer(id, channelId, webhook.url, name);
-    addServerCache(id, channelId, webhook.url, name);
     message.reply("Channel linked successfully!");
   },
 };

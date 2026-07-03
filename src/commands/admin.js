@@ -1,6 +1,6 @@
 import { client } from "../client.js";
-import { adminUser } from "../db.js";
-import { USERID, PREFIX, adminUserCache } from "../utils.js";
+import { adminUser } from "../users.js";
+import { USERID, PREFIX } from "../utils.js";
 
 export default {
   name: "admin",
@@ -16,7 +16,7 @@ export default {
     const userText = args[0];
     if (!/^<@!?(\d+)>$/.test(userText)) {
       return message.reply("Please provide a valid user mention.");
-    }   
+    }
 
     const userId = userText.replace(/^<@!?(\d+)>$/, "$1");
     const user = await client.users.fetch(userId).catch(() => null);
@@ -24,7 +24,6 @@ export default {
       return message.reply("User not found.");
     }
     await adminUser(userId);
-    adminUserCache(userId);
     message.reply(`User ${user.username} has been granted admin rights.`);
 
   },

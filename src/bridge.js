@@ -2,15 +2,15 @@ import { WebhookClient } from "discord.js";
 import Logger from "garylog";
 
 import { client } from "./client.js";
-import { addUser, updateUsername, removeServer } from "./db.js";
-import { servers, users, addUserCache, getAuthorUsernameFromMessage, filterMessage, removeServerCache } from "./utils.js";
+import { removeServer, servers } from "./servers.js";
+import { addUser, updateUsername, users } from "./users.js";
+import { getAuthorUsernameFromMessage, filterMessage } from "./utils.js";
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   if (!users.some(u => u.id === message.author.id)) {
     const name = getAuthorUsernameFromMessage(message);
-    await addUser(message.author.id, name);
-    addUserCache(message.author.id, name);
+    addUser(message.author.id, name);
   }
 
   if (users.some(u => u.id === message.author.id && u.username !== getAuthorUsernameFromMessage(message))) {
@@ -70,9 +70,8 @@ client.on("messageCreate", async (message) => {
         files: message.attachments.map(att => att.url),
       }).catch(async (err) => {
         Logger.error("Failed to send webhook for server: " + (server.name || "Unknown") + " (ID: " + server.id + ")");
-        if (err.code === 10015 || err.code === 50027) { 
+        if (err.code === 10015 || err.code === 50027) {
           await removeServer(server.id);
-          removeServerCache(server.id);
         }
       });
     }
@@ -81,5 +80,4 @@ client.on("messageCreate", async (message) => {
 
 client.on("guildDelete", async (guild) => {
   await removeServer(guild.id);
-  removeServerCache(guild.id);
 });

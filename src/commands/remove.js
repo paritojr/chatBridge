@@ -1,7 +1,7 @@
 
-import { removeServer } from "../db.js";
-import { users, PREFIX, servers } from "../utils.js";
-import { removeServerCache } from "../utils.js";
+import { removeServer, servers } from "../servers.js";
+import { users } from "../users.js";
+import { PREFIX } from "../utils.js";
 
 export default {
   name: "remove",
@@ -15,10 +15,9 @@ export default {
       if (!/^\d+$/.test(serverId)) {
         return message.reply("Please provide a valid server ID.");
       }
-      const server = servers.find(s => s.id === serverId);
+      const server = servers.find((s) => s.id === serverId);
       removeServer(serverId);
-      removeServerCache(serverId);
-      message.reply(`Server ${server.name} has been removed from the bridge.`);
+      message.reply(`Server ${server?.name ?? serverId} has been removed from the bridge.`);
 
     }
   },

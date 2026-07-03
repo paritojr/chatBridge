@@ -1,7 +1,5 @@
 import { client } from "../client.js";
-import { unbanUser } from "../db.js";
-import { unbanUserCache } from "../utils.js";
-import { users } from "../utils.js";
+import { unbanUser, users } from "../users.js";
 
 export default {
   name: "unban",
@@ -15,7 +13,6 @@ export default {
           const userId = users[index].id;
           const username = users[index].username;
           await unbanUser(userId);
-          unbanUserCache(userId);
           return message.reply(`User ${username} has been unbanned from the bridge.`);
         }
       }
@@ -28,8 +25,7 @@ export default {
       if (!user) {
         return message.reply("User not found.");
       }
-      await unbanUser(userId, user.username, false);
-      unbanUserCache(userId);
+      await unbanUser(userId);
       message.reply(`User ${user.username} has been unbanned from the bridge.`);
     } else {
       return message.reply("You do not have permission to use this command.");
