@@ -5,9 +5,12 @@ import { client } from "./client.js";
 import { removeServer, servers } from "./servers.js";
 import { addUser, updateUsername, users } from "./users.js";
 import { getAuthorUsernameFromMessage, filterMessage } from "./utils.js";
+import { recordMessageBridge } from "./messageLog.js";
+import { PREFIX } from "./utils.js";
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
+  if (message.content.startsWith(PREFIX)) return;
   if (!users.some(u => u.id === message.author.id)) {
     const name = getAuthorUsernameFromMessage(message);
     addUser(message.author.id, name);
@@ -68,6 +71,8 @@ client.on("messageCreate", async (message) => {
         username: name,
         avatarURL: message.author.displayAvatarURL(),
         files: message.attachments.map(att => att.url),
+      }).then((sentMessage) => {
+        recordMessageBridge(message.id, message.channel.id, server.channelId, sentMessage.id);
       }).catch(async (err) => {
         Logger.error("Failed to send webhook for server: " + (server.name || "Unknown") + " (ID: " + server.id + ")");
         if (err.code === 10015 || err.code === 50027) {
