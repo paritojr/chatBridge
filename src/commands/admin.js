@@ -6,10 +6,8 @@ export default {
   name: "admin",
   description: "give admin rights to a user",
   usage: "admin <@user>",
+  allowedRank: "owner",
   async execute(message, args) {
-    if (message.author.id.toString() !== USERID) {
-      return message.reply("You do not have permission to use this command.");
-    }
 
     if (args.length < 1) {
       return message.reply(`Usage: ${PREFIX}admin <@user>`);

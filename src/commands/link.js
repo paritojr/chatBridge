@@ -7,10 +7,8 @@ export default {
   name: "link",
   description: "link your channel to the bridge",
   usage: "link <channel>",
+  allowedRank: "serveradmin",
   async execute(message, args) {
-    if (!message.member.permissions.has("Administrator")) {
-      return message.reply("You need to be an administrator to use this command.");
-    }
 
     if (args.length < 1) {
       return message.reply(`Usage: ${PREFIX}link <channel>`);

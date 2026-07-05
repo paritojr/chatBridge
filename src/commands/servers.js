@@ -5,6 +5,7 @@ export default {
   name: "servers",
   description: "list all linked servers",
   usage: "servers",
+  allowedRank: "admin",
   async execute(message) {
 
     if (users.some(u => u.id === message.author.id && u.admin === 1)) {

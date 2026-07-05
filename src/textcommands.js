@@ -22,7 +22,29 @@ client.on(Events.MessageCreate, async (message) => {
   const args = message.content.slice(PREFIX.length).trim().split(/ +/);
   const commandName = args.shift().toLowerCase();
   const command = client.textCommands.get(commandName);
+
   if (!command) return;
+
+  switch (command?.allowedRank) {
+    case "owner":
+      if (message.author.id !== process.env.USERID) {
+        return message.reply("You do not have permission to use this command.");
+      }
+      break;
+    case "serveradmin":
+      if (!message.member.permissions.has("Administrator")) {
+        return message.reply("You do not have permission to use this command.");
+      }
+      break;
+    case "admin":
+      if (!users.some(u => u.id === message.author.id && u.admin === 1)) {
+        return message.reply("You do not have permission to use this command.");
+      }
+      break;
+    default:
+      break;
+  }
+
   try {
     await command.execute(message, args);
   } catch (error) {
