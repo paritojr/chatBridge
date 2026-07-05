@@ -61,12 +61,12 @@ client.on("messageCreate", async (message) => {
       let filteredContent = await filterMessage(message.content);
 
       const name = getAuthorUsernameFromMessage(message);
-      const shitStickers = message.stickers?.filter(s => s.type !== 1 && !s.url.endsWith('.json')).map(s => s.url) || [];
+      const stickers = message.stickers?.filter(s => s.type !== 1 && !s.url.endsWith('.json')).map(s => `${s.url}?size=160`) || [];
       const webhookFiles = message.attachments.map(att => att.url);
       let finalContent = `${replyText}\n${filteredContent}`;
-      
-      if (shitStickers.length > 0) {
-        finalContent += `\n${shitStickers.join('\n')}`;
+
+      if (stickers.length > 0) {
+        finalContent += `\n${stickers.join('\n')}`;
       }
 
       if (!finalContent.trim() && webhookFiles.length === 0) {
