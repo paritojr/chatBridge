@@ -2,10 +2,10 @@ import { WebhookClient } from "discord.js";
 import Logger from "garylog";
 
 import { client } from "./client.js";
+import { recordMessageBridge } from "./messageLog.js";
 import { removeServer, servers } from "./servers.js";
 import { addUser, updateUsername, users } from "./users.js";
 import { getAuthorUsernameFromMessage, filterMessage } from "./utils.js";
-import { recordMessageBridge } from "./messageLog.js";
 import { PREFIX } from "./utils.js";
 
 client.on("messageCreate", async (message) => {
@@ -61,12 +61,12 @@ client.on("messageCreate", async (message) => {
       let filteredContent = await filterMessage(message.content);
 
       const name = getAuthorUsernameFromMessage(message);
-      const stickers = message.stickers?.filter(s => s.type !== 1 && !s.url.endsWith('.json')).map(s => `${s.url}?size=160`) || [];
+      const stickers = message.stickers?.filter(s => s.type !== 1 && !s.url.endsWith(".json")).map(s => `${s.url}?size=160`) || [];
       const webhookFiles = message.attachments.map(att => att.url);
       let finalContent = `${replyText}\n${filteredContent}`;
 
       if (stickers.length > 0) {
-        finalContent += `\n${stickers.join('\n')}`;
+        finalContent += `\n${stickers.join("\n")}`;
       }
 
       if (!finalContent.trim() && webhookFiles.length === 0) {
