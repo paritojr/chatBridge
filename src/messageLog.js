@@ -112,3 +112,24 @@ export async function deleteMessage(messageId, channelId) {
   persistMessageLog();
   return true;
 }
+
+export function getReplicateMessageId(referencedMessageId, targetChannelId) {
+  loadMessageLog();
+
+  const directEntry = messageLog.find((entry) => entry.original_id === referencedMessageId);
+  if (directEntry && directEntry.webhook_messages[targetChannelId]) {
+    return directEntry.webhook_messages[targetChannelId];
+  }
+
+  const webhookEntry = messageLog.find((entry) => Object.values(entry.webhook_messages).includes(referencedMessageId));
+  if (webhookEntry) {
+    if (webhookEntry.source_channel_id === targetChannelId) {
+      return webhookEntry.original_id;
+    }
+    if (webhookEntry.webhook_messages[targetChannelId]) {
+      return webhookEntry.webhook_messages[targetChannelId];
+    }
+  }
+
+  return null;
+}
